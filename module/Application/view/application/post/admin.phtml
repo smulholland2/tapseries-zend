@@ -12,7 +12,7 @@ $this->pageBreadcrumbs()->setItems([
 
 <p>
 <a class="btn btn-default" href="
-    <?= $this->url('posts', ['action'=>'add']); ?>">
+    <?= $this->url('pages', ['action'=>'add']); ?>">
     New Page
 </a>
 </p>
@@ -21,30 +21,30 @@ $this->pageBreadcrumbs()->setItems([
 
    <tr>
         <th>ID</th>
-        <th>Post Title</th>
+        <th>Page Title</th>
         <th>Date Created</th>
         <th>Status</th>        
         <th>Actions</th>        
     </tr>
     
-    <?php foreach ($posts as $post): ?>
+    <?php foreach ($pages as $page): ?>
     
     <tr>
-        <td><?= $this->escapeHtml($post->getId()); ?></td>
+        <td><?= $this->escapeHtml($page->getId()); ?></td>
         <td>
-            <a href="<?= $this->url('posts', ['action'=>'view', 'id'=>$post->getId()]); ?>">
-                <?= $this->escapeHtml($post->getTitle()); ?>
+            <a href="<?= $this->url('pages', ['action'=>'view', 'id'=>$page->getId()]); ?>">
+                <?= $this->escapeHtml($page->getTitle()); ?>
             </a> 
         </td>
-        <td><?= $this->escapeHtml($post->getDateCreated()); ?></td>        
-        <td><?= $this->escapeHtml($postManager->getPostStatusAsString($post)); ?></td>
+        <td><?= $this->escapeHtml($page->getDateCreated()); ?></td>        
+        <td><?= $this->escapeHtml($pageManager->getPageStatusAsString($page)); ?></td>
         <td>
-            <a class="btn btn-info" href="<?= $this->url('posts', 
-                    ['action'=>'edit', 'id'=>$post->getId()]); ?>">
+            <a class="btn btn-info" href="<?= $this->url('pages', 
+                    ['action'=>'edit', 'id'=>$page->getId()]); ?>">
                 <span class="glyphicon glyphicon-pencil" ></span> Edit
             </a>
-            <a class="btn btn-danger" href="<?= $this->url('posts',
-                    ['action'=>'delete', 'id'=>$post->getId()]); ?>">
+            <a class="btn btn-danger" href="<?= $this->url('pages',
+                    ['action'=>'delete', 'id'=>$page->getId()]); ?>">
                 <span class="glyphicon glyphicon-remove"></span> Delete
             </a>
         </td>    

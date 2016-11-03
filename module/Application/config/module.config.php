@@ -37,16 +37,16 @@ return [
                     ],
                 ],
             ],
-            'posts' => [
+            'pages' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/posts[/:action[/:id]]',
+                    'route'    => '/pages[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[0-9]*'
                     ],
                     'defaults' => [
-                        'controller'    => Controller\PostController::class,
+                        'controller'    => Controller\PageController::class,
                         'action'        => 'index',
                     ],
                 ],
@@ -66,7 +66,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
-            Controller\PostController::class => Controller\Factory\PostControllerFactory::class,
+            Controller\PageController::class => Controller\Factory\PageControllerFactory::class,
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
@@ -92,7 +92,7 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            Service\PostManager::class => Service\Factory\PostManagerFactory::class,
+            Service\PageManager::class => Service\Factory\PageManagerFactory::class,
             Service\NavManager::class => Service\Factory\NavManagerFactory::class,
         ],
     ],

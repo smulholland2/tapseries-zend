@@ -5,13 +5,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * This class represents a single post in a blog.
- * @ORM\Entity(repositoryClass="\Application\Repository\PostRepository")
- * @ORM\Table(name="post")
+ * This class represents a single page in a website.
+ * @ORM\Entity(repositoryClass="\Application\Repository\PageRepository")
+ * @ORM\Table(name="page")
  */
-class Post 
+class Page 
 {
-    // Post status constants.
+    // Page status constants.
     const STATUS_DRAFT       = 1; // Draft.
     const STATUS_PUBLISHED   = 2; // Published.
 
@@ -43,15 +43,15 @@ class Post
     protected $dateCreated;
     
     /**
-     * @ORM\OneToMany(targetEntity="\Application\Entity\Comment", mappedBy="post")
-     * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
+     * @ORM\OneToMany(targetEntity="\Application\Entity\Comment", mappedBy="page")
+     * @ORM\JoinColumn(name="id", referencedColumnName="page_id")
      */
     protected $comments;
     
     /**
-     * @ORM\ManyToMany(targetEntity="\Application\Entity\Tag", inversedBy="posts")
-     * @ORM\JoinTable(name="post_tag",
-     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
+     * @ORM\ManyToMany(targetEntity="\Application\Entity\Tag", inversedBy="pages")
+     * @ORM\JoinTable(name="page_tag",
+     *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      */
@@ -67,7 +67,7 @@ class Post
     }
 
     /**
-     * Returns ID of this post.
+     * Returns ID of this page.
      * @return integer
      */
     public function getId() 
@@ -76,7 +76,7 @@ class Post
     }
 
     /**
-     * Sets ID of this post.
+     * Sets ID of this page.
      * @param int $id
      */
     public function setId($id) 
@@ -121,7 +121,7 @@ class Post
     }   
     
     /**
-     * Returns post content.
+     * Returns page content.
      */
     public function getContent() 
     {
@@ -129,7 +129,7 @@ class Post
     }
     
     /**
-     * Sets post content.
+     * Sets page content.
      * @param type $content
      */
     public function setContent($content) 
@@ -138,7 +138,7 @@ class Post
     }
     
     /**
-     * Returns the date when this post was created.
+     * Returns the date when this page was created.
      * @return string
      */
     public function getDateCreated() 
@@ -147,7 +147,7 @@ class Post
     }
     
     /**
-     * Sets the date when this post was created.
+     * Sets the date when this page was created.
      * @param string $dateCreated
      */
     public function setDateCreated($dateCreated) 
@@ -156,7 +156,7 @@ class Post
     }
     
     /**
-     * Returns comments for this post.
+     * Returns comments for this page.
      * @return array
      */
     public function getComments() 
@@ -165,7 +165,7 @@ class Post
     }
     
     /**
-     * Adds a new comment to this post.
+     * Adds a new comment to this page.
      * @param $comment
      */
     public function addComment($comment) 
@@ -174,7 +174,7 @@ class Post
     }
     
     /**
-     * Returns tags for this post.
+     * Returns tags for this page.
      * @return array
      */
     public function getTags() 
@@ -183,7 +183,7 @@ class Post
     }      
     
     /**
-     * Adds a new tag to this post.
+     * Adds a new tag to this page.
      * @param $tag
      */
     public function addTag($tag) 
@@ -192,7 +192,7 @@ class Post
     }
     
     /**
-     * Removes association between this post and the given tag.
+     * Removes association between this page and the given tag.
      * @param type $tag
      */
     public function removeTagAssociation($tag) 

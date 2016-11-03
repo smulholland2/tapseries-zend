@@ -1,17 +1,17 @@
 <?php
-$this->headTitle('New Post');
+$this->headTitle('New Page');
 
 $this->mainMenu()->setActiveItemId('home');
 
 $this->pageBreadcrumbs()->setItems([
             'Home'=>$this->url('home'),
-            'Add Post'=>$this->url('posts', ['action'=>'add'])
+            'Add Page'=>$this->url('pages', ['action'=>'add'])
             ]);
 
 $form = $this->form;
 $form->get('title')->setAttributes([
     'class'=>'form-control', 
-    'placeholder'=>'Enter post title here'
+    'placeholder'=>'Enter page title here'
     ]);
 $form->get('content')->setAttributes([
     'class'=>'form-control', 

@@ -20,9 +20,9 @@ return [
                 'driverClass' => PDOMySqlDriver::class,
                 'params' => [
                     'host'     => '127.0.0.1',                    
-                    'user'     => 'blog',
+                    'user'     => 'developer',
                     'password' => '<password>',
-                    'dbname'   => 'blog',
+                    'dbname'   => 'tapapp',
                 ]
             ],            
         ],        

@@ -24,16 +24,16 @@ class Tag
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Application\Entity\Post", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="\Application\Entity\Page", mappedBy="tags")
      */
-    protected $posts;
+    protected $pages;
     
     /**
      * Constructor.
      */
     public function __construct() 
     {        
-        $this->posts = new ArrayCollection();        
+        $this->pages = new ArrayCollection();        
     }
 
     /**
@@ -73,21 +73,21 @@ class Tag
     }
     
     /**
-     * Returns posts which have this tag.
+     * Returns pages which have this tag.
      * @return type
      */
-    public function getPosts() 
+    public function getPages() 
     {
-        return $this->posts;
+        return $this->pages;
     }
     
     /**
-     * Adds a post which has this tag.
-     * @param type $post
+     * Adds a page which has this tag.
+     * @param type $page
      */
-    public function addPost($post) 
+    public function addPage($page) 
     {
-        $this->posts[] = $post;        
+        $this->pages[] = $page;        
     }
 }
 

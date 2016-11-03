@@ -16,7 +16,7 @@ class Version20160901114333 extends AbstractMigration
      */
     public function getDescription()
     {
-        $description = 'This is the initial migration which creates blog tables.';
+        $description = 'This is the initial migration which creates tapapp tables.';
         return $description;
     }
     
@@ -26,7 +26,7 @@ class Version20160901114333 extends AbstractMigration
     public function up(Schema $schema)
     {
         // Create 'post' table
-        $table = $schema->createTable('post');
+        $table = $schema->createTable('page');
         $table->addColumn('id', 'integer', ['autoincrement'=>true]);        
         $table->addColumn('title', 'text', ['notnull'=>true]);
         $table->addColumn('content', 'text', ['notnull'=>true]);
@@ -53,7 +53,7 @@ class Version20160901114333 extends AbstractMigration
         $table->addOption('engine' , 'InnoDB');
         
         // Create 'post_tag' table
-        $table = $schema->createTable('post_tag');
+        $table = $schema->createTable('page_tag');
         $table->addColumn('id', 'integer', ['autoincrement'=>true]); 
         $table->addColumn('post_id', 'integer', ['notnull'=>true]);
         $table->addColumn('tag_id', 'integer', ['notnull'=>true]);
@@ -66,9 +66,9 @@ class Version20160901114333 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $schema->dropTable('post_tag');
+        $schema->dropTable('page_tag');
         $schema->dropTable('tag');
         $schema->dropTable('comment');
-        $schema->dropTable('post');
+        $schema->dropTable('page');
     }
 }

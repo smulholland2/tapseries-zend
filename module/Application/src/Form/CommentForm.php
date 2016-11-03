@@ -19,7 +19,7 @@ class CommentForm extends Form
         parent::__construct('comment-form');
      
         // Set POST method for this form
-        $this->setAttribute('method', 'post');
+        $this->setAttribute('method', 'page');
                 
         $this->addElements();
         $this->addInputFilter();  

@@ -4,12 +4,12 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
-use Application\Entity\Post;
+use Application\Entity\Page;
 
 /**
- * This form is used to collect post data.
+ * This form is used to collect page data.
  */
-class PostForm extends Form
+class PageForm extends Form
 {
     /**
      * Constructor.     
@@ -17,10 +17,10 @@ class PostForm extends Form
     public function __construct()
     {
         // Define form name
-        parent::__construct('post-form');
+        parent::__construct('page-form');
      
         // Set POST method for this form
-        $this->setAttribute('method', 'post');
+        $this->setAttribute('method', 'page');
                 
         $this->addElements();
         $this->addInputFilter();  
@@ -79,8 +79,8 @@ class PostForm extends Form
             'options' => [
                 'label' => 'Status',
                 'value_options' => [
-                    Post::STATUS_PUBLISHED => 'Published',
-                    Post::STATUS_DRAFT => 'Draft',
+                    Page::STATUS_PUBLISHED => 'Published',
+                    Page::STATUS_DRAFT => 'Draft',
                 ]
             ],
         ]);

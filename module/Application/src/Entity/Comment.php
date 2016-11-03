@@ -4,7 +4,7 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * This class represents a comment related to a blog post.
+ * This class represents a comment related to a page.
  * @ORM\Entity
  * @ORM\Table(name="comment")
  */
@@ -33,10 +33,10 @@ class Comment
     protected $dateCreated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Post", inversedBy="comments")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Page", inversedBy="comments")
+     * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
      */
-    protected $post;
+    protected $page;
     
     /**
      * Returns ID of this comment.
@@ -93,7 +93,7 @@ class Comment
     }
 
     /**
-     * Returns the date when this post was created.
+     * Returns the date when this page was created.
      * @return string
      */
     public function getDateCreated() 
@@ -102,7 +102,7 @@ class Comment
     }
     
     /**
-     * Sets the date when this post was created.
+     * Sets the date when this page was created.
      * @param string $dateCreated
      */
     public function setDateCreated($dateCreated) 
@@ -111,22 +111,22 @@ class Comment
     }
     
     /*
-     * Returns associated post.
-     * @return \Application\Entity\Post
+     * Returns associated page.
+     * @return \Application\Entity\Page
      */
-    public function getPost() 
+    public function getPage() 
     {
-        return $this->post;
+        return $this->page;
     }
     
     /**
-     * Sets associated post.
-     * @param \Application\Entity\Post $post
+     * Sets associated page.
+     * @param \Application\Entity\Page $page
      */
-    public function setPost($post) 
+    public function setPage($page) 
     {
-        $this->post = $post;
-        $post->addComment($this);
+        $this->page = $page;
+        $page->addComment($this);
     }
 }
 

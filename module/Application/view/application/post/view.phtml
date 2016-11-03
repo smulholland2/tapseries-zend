@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('View Post - ' . $post->getTitle());
+$this->headTitle('View Page - ' . $page->getTitle());
 
 $this->mainMenu()->setActiveItemId('home');
 
@@ -23,32 +23,32 @@ $form->prepare();
 
 <a href="
     <?= $this->url('application', ['action'=>'index']); ?>">
-    &lt;&lt; Back to list of posts
+    &lt;&lt; Back to list of pages
 </a>
 
 <h1>
-    <?= $this->escapeHtml($post->getTitle()); ?>    
+    <?= $this->escapeHtml($page->getTitle()); ?>    
 </h1>
 
 <p class="comments-header">
-    <?= $this->escapeHtml($postManager->getCommentCountStr($post)); ?> | 
+    <?= $this->escapeHtml($pageManager->getCommentCountStr($page)); ?> | 
     <a href="#comment">
         Add new comment
     </a>
 </p>
 
 <p>
-    Published: <?= $this->escapeHtml(date('jS \of F Y', strtotime($post->getDateCreated()))); ?> 
-    | Tags: <?= $this->escapeHtml($postManager->convertTagsToString($post)); ?>   
+    Published: <?= $this->escapeHtml(date('jS \of F Y', strtotime($page->getDateCreated()))); ?> 
+    | Tags: <?= $this->escapeHtml($pageManager->convertTagsToString($page)); ?>   
 </p>
 
 <p>
-    <?= $post->getContent() ?>
+    <?= $page->getContent() ?>
 </p>
 
-<h3><?= $this->escapeHtml($postManager->getCommentCountStr($post)); ?></h3>
+<h3><?= $this->escapeHtml($pageManager->getCommentCountStr($page)); ?></h3>
 
-<?php foreach ($post->getComments() as $comment): ?>
+<?php foreach ($page->getComments() as $comment): ?>
 
 <hr>
 

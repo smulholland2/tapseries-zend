@@ -2,16 +2,16 @@
 namespace Application\Service;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
-use Application\Entity\Post;
+use Application\Entity\Page;
 use Application\Entity\Comment;
 use Application\Entity\Tag;
 use Zend\Filter\StaticFilter;
 
 /**
- * The PostManager service is responsible for adding new posts, updating existing
- * posts, adding tags to post, etc.
+ * The PageManager service is responsible for adding new pages, updating existing
+ * pages, adding tags to page, etc.
  */
-class PostManager
+class PageManager
 {
     /**
      * Entity manager.
@@ -28,56 +28,56 @@ class PostManager
     }
     
     /**
-     * This method adds a new post.
+     * This method adds a new page.
      */
-    public function addNewPost($data) 
+    public function addNewPage($data) 
     {
-        // Create new Post entity.
-        $post = new Post();
-        $post->setTitle($data['title']);
-        $post->setContent($data['content']);
-        $post->setStatus($data['status']);
+        // Create new Page entity.
+        $page = new Page();
+        $page->setTitle($data['title']);
+        $page->setContent($data['content']);
+        $page->setStatus($data['status']);
         $currentDate = date('Y-m-d H:i:s');
-        $post->setDateCreated($currentDate);        
+        $page->setDateCreated($currentDate);        
         
         // Add the entity to entity manager.
-        $this->entityManager->persist($post);
+        $this->entityManager->persist($page);
         
-        // Add tags to post
-        $this->addTagsToPost($data['tags'], $post);
+        // Add tags to page
+        $this->addTagsToPage($data['tags'], $page);
         
         // Apply changes to database.
         $this->entityManager->flush();
     }
     
     /**
-     * This method allows to update data of a single post.
+     * This method allows to update data of a single page.
      */
-    public function updatePost($post, $data) 
+    public function updatePage($page, $data) 
     {
-        $post->setTitle($data['title']);
-        $post->setContent($data['content']);
-        $post->setStatus($data['status']);
+        $page->setTitle($data['title']);
+        $page->setContent($data['content']);
+        $page->setStatus($data['status']);
         
-        // Add tags to post
-        $this->addTagsToPost($data['tags'], $post);
+        // Add tags to page
+        $this->addTagsToPage($data['tags'], $page);
         
         // Apply changes to database.
         $this->entityManager->flush();
     }
 
     /**
-     * Adds/updates tags in the given post.
+     * Adds/updates tags in the given page.
      */
-    private function addTagsToPost($tagsStr, $post) 
+    private function addTagsToPage($tagsStr, $page) 
     {
         // Remove tag associations (if any)
-        $tags = $post->getTags();
+        $tags = $page->getTags();
         foreach ($tags as $tag) {            
-            $post->removeTagAssociation($tag);
+            $page->removeTagAssociation($tag);
         }
         
-        // Add tags to post
+        // Add tags to page
         $tags = explode(',', $tagsStr);
         foreach ($tags as $tagName) {
             
@@ -92,33 +92,33 @@ class PostManager
                 $tag = new Tag();
             
             $tag->setName($tagName);
-            $tag->addPost($post);
+            $tag->addPage($page);
             
             $this->entityManager->persist($tag);
             
-            $post->addTag($tag);
+            $page->addTag($tag);
         }
     }    
     
     /**
      * Returns status as a string.
      */
-    public function getPostStatusAsString($post) 
+    public function getPageStatusAsString($page) 
     {
-        switch ($post->getStatus()) {
-            case Post::STATUS_DRAFT: return 'Draft';
-            case Post::STATUS_PUBLISHED: return 'Published';
+        switch ($page->getStatus()) {
+            case Page::STATUS_DRAFT: return 'Draft';
+            case Page::STATUS_PUBLISHED: return 'Published';
         }
         
         return 'Unknown';
     }
     
     /**
-     * Converts tags of the given post to comma separated list (string).
+     * Converts tags of the given page to comma separated list (string).
      */
-    public function convertTagsToString($post) 
+    public function convertTagsToString($page) 
     {
-        $tags = $post->getTags();
+        $tags = $page->getTags();
         $tagCount = count($tags);
         $tagsStr = '';
         $i = 0;
@@ -133,11 +133,11 @@ class PostManager
     }    
 
     /**
-     * Returns count of comments for given post as properly formatted string.
+     * Returns count of comments for given page as properly formatted string.
      */
-    public function getCommentCountStr($post)
+    public function getCommentCountStr($page)
     {
-        $commentCount = count($post->getComments());
+        $commentCount = count($page->getComments());
         if ($commentCount == 0)
             return 'No comments';
         else if ($commentCount == 1) 
@@ -148,13 +148,13 @@ class PostManager
 
 
     /**
-     * This method adds a new comment to post.
+     * This method adds a new comment to page.
      */
-    public function addCommentToPost($post, $data) 
+    public function addCommentToPage($page, $data) 
     {
         // Create new Comment entity.
         $comment = new Comment();
-        $comment->setPost($post);
+        $comment->setPage($page);
         $comment->setAuthor($data['author']);
         $comment->setContent($data['comment']);        
         $currentDate = date('Y-m-d H:i:s');
@@ -168,24 +168,24 @@ class PostManager
     }
     
     /**
-     * Removes post and all associated comments.
+     * Removes page and all associated comments.
      */
-    public function removePost($post) 
+    public function removePage($page) 
     {
         // Remove associated comments
-        $comments = $post->getComments();
+        $comments = $page->getComments();
         foreach ($comments as $comment) {
             $this->entityManager->remove($comment);
         }
         
         // Remove tag associations (if any)
-        $tags = $post->getTags();
+        $tags = $page->getTags();
         foreach ($tags as $tag) {
             
-            $post->removeTagAssociation($tag);
+            $page->removeTagAssociation($tag);
         }
         
-        $this->entityManager->remove($post);
+        $this->entityManager->remove($page);
         
         $this->entityManager->flush();
     }
@@ -197,28 +197,28 @@ class PostManager
     {
         $tagCloud = [];
                 
-        $posts = $this->entityManager->getRepository(Post::class)
-                    ->findPostsHavingAnyTag();
-        $totalPostCount = count($posts);
+        $pages = $this->entityManager->getRepository(Page::class)
+                    ->findPagesHavingAnyTag();
+        $totalPageCount = count($pages);
         
         $tags = $this->entityManager->getRepository(Tag::class)
                 ->findAll();
         foreach ($tags as $tag) {
             
-            $postsByTag = $this->entityManager->getRepository(Post::class)
-                    ->findPostsByTag($tag->getName());
+            $pagesByTag = $this->entityManager->getRepository(Page::class)
+                    ->findPagesByTag($tag->getName());
             
-            $postCount = count($postsByTag);
-            if ($postCount > 0) {
-                $tagCloud[$tag->getName()] = $postCount;
+            $pageCount = count($pagesByTag);
+            if ($pageCount > 0) {
+                $tagCloud[$tag->getName()] = $pageCount;
             }
         }
         
         $normalizedTagCloud = [];
         
         // Normalize
-        foreach ($tagCloud as $name=>$postCount) {
-            $normalizedTagCloud[$name] =  $postCount/$totalPostCount;
+        foreach ($tagCloud as $name=>$pageCount) {
+            $normalizedTagCloud[$name] =  $pageCount/$totalPageCount;
         }
         
         return $normalizedTagCloud;
