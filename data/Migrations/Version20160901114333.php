@@ -25,7 +25,7 @@ class Version20160901114333 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        // Create 'post' table
+        // Create 'page' table
         $table = $schema->createTable('page');
         $table->addColumn('id', 'integer', ['autoincrement'=>true]);        
         $table->addColumn('title', 'text', ['notnull'=>true]);
@@ -38,7 +38,7 @@ class Version20160901114333 extends AbstractMigration
         // Create 'comment' table
         $table = $schema->createTable('comment');
         $table->addColumn('id', 'integer', ['autoincrement'=>true]); 
-        $table->addColumn('post_id', 'integer', ['notnull'=>true]);
+        $table->addColumn('page_id', 'integer', ['notnull'=>true]);
         $table->addColumn('content', 'text', ['notnull'=>true]);
         $table->addColumn('author', 'string', ['notnull'=>true, 'lenght'=>128]);
         $table->addColumn('date_created', 'datetime', ['notnull'=>true]);
@@ -52,10 +52,10 @@ class Version20160901114333 extends AbstractMigration
         $table->setPrimaryKey(['id']);
         $table->addOption('engine' , 'InnoDB');
         
-        // Create 'post_tag' table
+        // Create 'page_tag' table
         $table = $schema->createTable('page_tag');
         $table->addColumn('id', 'integer', ['autoincrement'=>true]); 
-        $table->addColumn('post_id', 'integer', ['notnull'=>true]);
+        $table->addColumn('page_id', 'integer', ['notnull'=>true]);
         $table->addColumn('tag_id', 'integer', ['notnull'=>true]);
         $table->setPrimaryKey(['id']);
         $table->addOption('engine' , 'InnoDB');       

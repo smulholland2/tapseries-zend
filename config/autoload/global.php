@@ -33,7 +33,7 @@ return [
     'session_storage' => [
         'type' => SessionArrayStorage::class
     ],
-    'doctrine' => [        
+    'doctrine' => [                
         // migrations configuration
         'migrations_configuration' => [
             'orm_default' => [
